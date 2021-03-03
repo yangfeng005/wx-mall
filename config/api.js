@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/platform_framework/api/';
+const API_BASE_URL = 'http://localhost:28080/api/';
 module.exports = {
     IndexUrlNewGoods: API_BASE_URL + 'index/newGoods', //新品首发
     IndexUrlHotGoods: API_BASE_URL + 'index/hotGoods', //热卖商品
@@ -10,7 +10,7 @@ module.exports = {
     CatalogList: API_BASE_URL + 'catalog/index',  //分类目录全部分类数据接口
     CatalogCurrent: API_BASE_URL + 'catalog/current',  //分类目录当前分类数据接口
 
-    AuthLoginByWeixin: API_BASE_URL + 'auth/login_by_weixin', //微信登录
+    AuthLoginByWeixin: API_BASE_URL + 'auth/loginByWx', //微信登录
 
     GoodsCount: API_BASE_URL + 'goods/count',  //统计商品总数
     GoodsList: API_BASE_URL + 'goods/list',  //获得商品列表
