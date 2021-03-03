@@ -4,7 +4,7 @@
   <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
     <swiper-item wx:for="{{banner}}" wx:key="{{item.id}}">
       <navigator url="{{item.link}}">
-        <image src="http://localhost:28080/file/download?fileId={{item.imageUrl}}" background-size="cover"></image>
+        <image src="{{fileDownloadUrl}}{{item.imageUrl}}" background-size="cover"></image>
       </navigator>
     </swiper-item>
   </swiper>
@@ -28,7 +28,7 @@
       <view class="item item-1" wx:for="{{brand}}" wx:key="item.id">
         <navigator url="/pages/brandDetail/brandDetail?id={{item.id}}">
           <view class="wrap">
-            <image class="img" src="http://localhost:28080/file/download?fileId={{item.newPicUrl}}" mode="aspectFill"></image>
+            <image class="img" src="{{fileDownloadUrl}}{{item.newPicUrl}}" mode="aspectFill"></image>
             <view class="mt">
               <text class="brand">{{item.name}}</text>
               <text class="price">{{item.floor_price}}</text>
@@ -76,7 +76,7 @@
     <view class="b">
       <view class="item" wx:for="{{newGoods}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
         <navigator url="../goods/goods?id={{item.id}}">
-          <image class="img" src="http://localhost:28080/file/download?fileId={{item.listPicUrl}}" background-size="cover"></image>
+          <image class="img" src="{{fileDownloadUrl}}{{item.listPicUrl}}" background-size="cover"></image>
           <text class="name">{{item.name}}</text>
           <text class="price">￥{{item.retailPrice}}</text>
         </navigator>
@@ -95,7 +95,7 @@
     <view class="b">
       <view class="item" wx:for="{{hotGoods}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
         <navigator url="/pages/goods/goods?id={{item.id}}">
-          <image class="img" src="http://localhost:28080/file/download?fileId={{item.listPicUrl}}" background-size="cover"></image>
+          <image class="img" src="{{fileDownloadUrl}}{{item.listPicUrl}}" background-size="cover"></image>
           <view class="right">
             <view class="text">
               <text class="name">{{item.name}}</text>

@@ -12,7 +12,8 @@ Page({
         brands: [],
         floorGoods: [],
         banner: [],
-        channel: []
+        channel: [],
+        fileDownloadUrl: api.FileDownloadUrl
     },
     onShareAppMessage: function () {
         wx.showShareMenu({ 
