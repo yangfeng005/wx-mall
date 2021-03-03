@@ -10,7 +10,8 @@ Page({
     brand: {},
     goodsList: [],
     page: 1,
-    size: 1000
+    size: 1000,
+    fileDownloadUrl: api.FileDownloadUrl
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -23,7 +24,7 @@ Page({
   getBrand: function () {
     let that = this;
     util.request(api.BrandDetail, { id: that.data.id }).then(function (res) {
-      if (res.errno === 0) {
+      if (res.succeed) {
         that.setData({
           brand: res.data.brand
         });
@@ -37,7 +38,7 @@ Page({
 
     util.request(api.GoodsList, { brandId: that.data.id, page: that.data.page, size: that.data.size})
       .then(function (res) {
-        if (res.errno === 0) {
+        if (res.succeed) {
           that.setData({
             goodsList: res.data.goodsList
           });
