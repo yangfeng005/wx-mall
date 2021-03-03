@@ -1,7 +1,7 @@
 const API_BASE_URL = 'http://localhost:28080/api/';
 const API_DOWNLOAD_URL = 'http://localhost:28080/file/download?fileId='
 module.exports = {
-    FileDownloadUrl: API_DOWNLOAD_URL,
+    FileDownloadUrl: API_DOWNLOAD_URL,  //文件下载
     IndexUrlNewGoods: API_BASE_URL + 'index/newGoods', //新品首发
     IndexUrlHotGoods: API_BASE_URL + 'index/hotGoods', //热卖商品
     IndexUrlTopic: API_BASE_URL + 'index/topic', //专题精选api/
