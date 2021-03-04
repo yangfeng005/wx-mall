@@ -23,12 +23,13 @@ Page({
     openAttr: false,
     noCollectImage: "/static/images/icon_collect.png",
     hasCollectImage: "/static/images/icon_collect_checked.png",
-    collectBackImage: "/static/images/icon_collect.png"
+    collectBackImage: "/static/images/icon_collect.png",
+    fileDownloadUrl: api.FileDownloadUrl
   },
   getGoodsInfo: function () {
     let that = this;
     util.request(api.GoodsDetail, { id: that.data.id }).then(function (res) {
-      if (res.errno === 0) {
+      if (res.succeed) {
         that.setData({
           goods: res.data.info,
           gallery: res.data.gallery,
@@ -52,7 +53,7 @@ Page({
           });
         }
 
-        WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
+        WxParse.wxParse('goodsDetail', 'html', res.data.info.goodsDesc, that);
 
         that.getGoodsRelated();
       }
@@ -62,7 +63,7 @@ Page({
   getGoodsRelated: function () {
     let that = this;
     util.request(api.GoodsRelated, { id: that.data.id }).then(function (res) {
-      if (res.errno === 0) {
+      if (res.succeed) {
         that.setData({
           relatedGoods: res.data.goodsList,
         });
@@ -80,7 +81,7 @@ Page({
     //TODO 性能优化，可在wx:for中添加index，可以直接获取点击的属性名和属性值，不用循环
     let _specificationList = this.data.specificationList;
     for (let i = 0; i < _specificationList.length; i++) {
-      if (_specificationList[i].specification_id == specNameId) {
+      if (_specificationList[i].specificationId == specNameId) {
         for (let j = 0; j < _specificationList[i].valueList.length; j++) {
           if (_specificationList[i].valueList[j].id == specValueId) {
             //如果已经选中，则反选
