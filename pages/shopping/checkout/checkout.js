@@ -20,14 +20,27 @@ Page({
     isBuy: false,
     couponDesc: '',
     couponCode: '',
-    buyType: ''
+    buyType: '',
+    goodsId:'',
+    number: 0,
+    productId: '',
+    fileDownloadUrl: api.FileDownloadUrl
   },
   onLoad: function (options) {
-
     // 页面初始化 options为页面跳转所带来的参数
     if (options.isBuy!=null) {
       this.data.isBuy = options.isBuy
     }
+    if (options.goodsId!=null) {
+      this.data.goodsId = options.goodsId
+    }
+    if (options.number!=null) {
+      this.data.number = options.number
+    }
+    if (options.productId!=null) {
+      this.data.productId = options.productId
+    }
+    
     this.data.buyType = this.data.isBuy?'buy':'cart'
     //每次重新加载界面，清空数据
     app.globalData.userCoupon = 'NO_USE_COUPON'
@@ -38,7 +51,7 @@ Page({
     let that = this;
     var url = api.CartCheckout
     let buyType = this.data.isBuy ? 'buy' : 'cart'
-    util.request(url, { addressId: that.data.addressId, couponId: that.data.couponId, type: buyType }).then(function (res) {
+    util.request(url, { productId: that.data.productId, number: that.data.number, addressId: that.data.addressId, couponId: that.data.couponId, type: buyType }).then(function (res) {
       if (res.succeed) {
         that.setData({
           checkedGoodsList: res.data.checkedGoodsList,

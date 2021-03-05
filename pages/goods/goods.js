@@ -313,10 +313,13 @@ Page({
         //找不到对应的product信息，提示没有库存
         return false;
       }
-
+      let goodsId=this.data.goods.id;
+      let number=this.data.number;
+      let productId= checkedProduct[0].id
       // 直接购买商品
        wx.navigateTo({
-              url: '/pages/shopping/checkout/checkout?isBuy=true',
+              url: '/pages/shopping/checkout/checkout?isBuy=true&goodsId='+goodsId
+              +'&number='+number+'&productId='+productId,
             })
     }
   },
