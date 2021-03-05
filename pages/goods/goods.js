@@ -251,10 +251,10 @@ Page({
       }
     } else {
       //添加或是取消收藏
-      util.request(api.CollectAddOrDelete, { typeId: 0, valueId: this.data.id }, "POST", "application/json")
+      util.request(api.CollectAddOrDelete, { typeId: 0, valueId: this.data.id })
         .then(function (res) {
           let _res = res;
-          if (_res.errno == 0) {
+          if (_res.succeed) {
             if ( _res.data.type == 'add') {
               that.setData({
                 'collectBackImage': that.data.hasCollectImage
