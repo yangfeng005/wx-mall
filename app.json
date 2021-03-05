@@ -41,7 +41,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "仿网易严选",
+    "navigationBarTitleText": "云上购",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },

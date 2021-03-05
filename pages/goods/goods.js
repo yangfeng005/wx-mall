@@ -309,32 +309,15 @@ Page({
       }
 
       //验证库存
-      if (checkedProduct.goodsNumber < this.data.number) {
+      if (checkedProduct[0].goodsNumber < this.data.number) {
         //找不到对应的product信息，提示没有库存
         return false;
       }
 
       // 直接购买商品
-      util.request(api.BuyAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, "POST",'application/json')
-        .then(function (res) {
-          let _res = res;
-          if (_res.succeed) {
-            that.setData({
-              openAttr: !that.data.openAttr,
-            });
-            wx.navigateTo({
+       wx.navigateTo({
               url: '/pages/shopping/checkout/checkout?isBuy=true',
             })
-          } else {
-            wx.showToast({
-              image: '/static/images/icon_error.png',
-              title: _res.errmsg,
-              mask: true
-            });
-          }
-
-        });
-
     }
   },
 
