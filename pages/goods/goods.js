@@ -111,7 +111,7 @@ Page({
     let _specificationList = this.data.specificationList;
     for (let i = 0; i < _specificationList.length; i++) {
       let _checkedObj = {
-        nameId: _specificationList[i].specification_id,
+        nameId: _specificationList[i].specificationId,
         valueId: 0,
         valueText: ''
       };
@@ -134,7 +134,7 @@ Page({
   //判断规格是否选择完整
   isCheckedAllSpec: function () {
     return !this.getCheckedSpecValue().some(function (v) {
-      if (v.valueId == 0) {
+       if (v.valueId == 0) {
         return true;
       }
     });
@@ -172,7 +172,7 @@ Page({
   },
   getCheckedProductItem: function (key) {
     return this.data.productList.filter(function (v) {
-      if (v.goods_specification_ids.indexOf(key) > -1) {
+      if (v.goodsSpecificationIds.indexOf(key) > -1) {
         return true;
       } else {
         return false;
@@ -309,7 +309,7 @@ Page({
       }
 
       //验证库存
-      if (checkedProduct.goods_number < this.data.number) {
+      if (checkedProduct.goodsNumber < this.data.number) {
         //找不到对应的product信息，提示没有库存
         return false;
       }
@@ -318,7 +318,7 @@ Page({
       util.request(api.BuyAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, "POST",'application/json')
         .then(function (res) {
           let _res = res;
-          if (_res.errno == 0) {
+          if (_res.succeed) {
             that.setData({
               openAttr: !that.data.openAttr,
             });
@@ -376,7 +376,7 @@ Page({
       util.request(api.CartAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, 'POST', 'application/json')
         .then(function (res) {
           let _res = res;
-          if (_res.errno == 0) {
+          if (_res.succeed) {
             wx.showToast({
               title: '添加成功'
             });
