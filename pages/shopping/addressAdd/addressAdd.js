@@ -4,15 +4,15 @@ var app = getApp();
 Page({
   data: {
     address: {
-      id:0,
-      province_id: 0,
-      city_id: 0,
-      district_id: 0,
+      id: '',
+      provinceId: '',
+      cityId: '',
+      districtId: '',
       address: '',
-      full_region: '',
+      fullRegion: '',
       userName: '',
       telNumber: '',
-      is_default: 0
+      isDefault: false
     },
     addressId: 0,
     openSelectRegion: false,
@@ -48,7 +48,7 @@ Page({
   },
   bindIsDefault(){
     let address = this.data.address;
-    address.is_default = !address.is_default;
+    address.isDefault = !address.isDefault;
     this.setData({
       address: address
     });
@@ -56,7 +56,7 @@ Page({
   getAddressDetail() {
     let that = this;
     util.request(api.AddressDetail, { id: that.data.addressId }).then(function (res) {
-      if (res.errno === 0) {
+      if (res.succeed) {
         if(res.data){
             that.setData({
                 address: res.data
@@ -84,26 +84,26 @@ Page({
 
     //设置区域选择数据
     let address = this.data.address;
-    if (address.province_id > 0 && address.city_id > 0 && address.district_id > 0) {
+    if (address.provinceId > 0 && address.cityId > 0 && address.districtId > 0) {
       let selectRegionList = this.data.selectRegionList;
-      selectRegionList[0].id = address.province_id;
-      selectRegionList[0].name = address.province_name;
+      selectRegionList[0].id = address.provinceId;
+      selectRegionList[0].name = address.provinceName;
       selectRegionList[0].parentId = 1;
 
-      selectRegionList[1].id = address.city_id;
-      selectRegionList[1].name = address.city_name;
-      selectRegionList[1].parentId = address.province_id;
+      selectRegionList[1].id = address.cityId;
+      selectRegionList[1].name = address.cityName;
+      selectRegionList[1].parentId = address.provinceId;
 
-      selectRegionList[2].id = address.district_id;
-      selectRegionList[2].name = address.district_name;
-      selectRegionList[2].parentId = address.city_id;
+      selectRegionList[2].id = address.districtId;
+      selectRegionList[2].name = address.districtName;
+      selectRegionList[2].parentId = address.cityId;
 
       this.setData({
         selectRegionList: selectRegionList,
         regionType: 3
       });
 
-      this.getRegionList(address.city_id);
+      this.getRegionList(address.cityId);
     } else {
       this.setData({
         selectRegionList: [
@@ -215,13 +215,13 @@ Page({
 
     let address = this.data.address;
     let selectRegionList = this.data.selectRegionList;
-    address.province_id = selectRegionList[0].id;
-    address.city_id = selectRegionList[1].id;
-    address.district_id = selectRegionList[2].id;
-    address.province_name = selectRegionList[0].name;
-    address.city_name = selectRegionList[1].name;
-    address.district_name = selectRegionList[2].name;
-    address.full_region = selectRegionList.map(item => {
+    address.provinceId = selectRegionList[0].id;
+    address.cityId = selectRegionList[1].id;
+    address.districtId = selectRegionList[2].id;
+    address.provinceName = selectRegionList[0].name;
+    address.cityName = selectRegionList[1].name;
+    address.districtName = selectRegionList[2].name;
+    address.fullRegion = selectRegionList.map(item => {
       return item.name;
     }).join('');
 
@@ -279,7 +279,7 @@ Page({
     }
 
 
-    if (address.district_id == 0) {
+    if (address.districtId == 0) {
       util.showErrorToast('请输入省市区');
       return false;
     }
@@ -295,16 +295,16 @@ Page({
       id: address.id,
       userName: address.userName,
       telNumber: address.telNumber,
-      province_id: address.province_id,
-      city_id: address.city_id,
-      district_id: address.district_id,
-      is_default: address.is_default,
-      provinceName: address.province_name,
-      cityName: address.city_name,
-      countyName: address.district_name,
+      provinceId: address.provinceId,
+      cityId: address.cityId,
+      districtId: address.districtId,
+      isDefault: address.isDefault,
+      provinceName: address.provinceName,
+      cityName: address.cityName,
+      countyName: address.districtName,
       detailInfo: address.detailInfo,
-    }, 'POST', 'application/json').then(function (res) {
-      if (res.errno === 0) {
+    }).then(function (res) {
+      if (res.succeed) {
         wx.navigateBack({
           url: '/pages/shopping/address/address',
         })

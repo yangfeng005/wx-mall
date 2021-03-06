@@ -3,11 +3,11 @@
         <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.id > 0}}">
             <view class="l">
                 <text class="name">{{checkedAddress.userName}}</text>
-                <text class="default" wx:if="{{checkedAddress.is_default === 1}}">默认</text>
+                <text class="default" wx:if="{{checkedAddress.isDefault}}">默认</text>
             </view>
             <view class="m">
                 <text class="mobile">{{checkedAddress.telNumber}}</text>
-                <text class="address">{{checkedAddress.full_region+checkedAddress.detailInfo}}</text>
+                <text class="address">{{checkedAddress.fullRegion+checkedAddress.detailInfo}}</text>
             </view>
             <view class="r">
                 <image src="/static/images/address_right.png"></image>
