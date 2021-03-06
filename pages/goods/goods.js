@@ -307,7 +307,6 @@ Page({
         //找不到对应的product信息，提示没有库存
         return false;
       }
-
       //验证库存
       if (checkedProduct[0].goodsNumber < this.data.number) {
         //找不到对应的product信息，提示没有库存
