@@ -14,7 +14,8 @@ Page({
     },
     isEditCart: false,
     checkedAllStatus: true,
-    editCartList: []
+    editCartList: [],
+    fileDownloadUrl: api.FileDownloadUrl
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -40,7 +41,7 @@ Page({
   getCartList: function () {
     let that = this;
     util.request(api.CartList).then(function (res) {
-      if (res.errno === 0) {
+      if (res.succeed) {
         that.setData({
           cartGoods: res.data.cartList,
           cartTotal: res.data.cartTotal
@@ -67,8 +68,8 @@ Page({
     let that = this;
 
     if (!this.data.isEditCart) {
-      util.request(api.CartChecked, { productIds: that.data.cartGoods[itemIndex].product_id, isChecked: that.data.cartGoods[itemIndex].checked ? 0 : 1 }, "POST", "application/json").then(function (res) {
-        if (res.errno === 0) {
+      util.request(api.CartChecked, { productIds: that.data.cartGoods[itemIndex].productId, isChecked: that.data.cartGoods[itemIndex].checked ? 0 : 1 }).then(function (res) {
+        if (res.succeed) {
           that.setData({
             cartGoods: res.data.cartList,
             cartTotal: res.data.cartTotal
@@ -110,10 +111,10 @@ Page({
 
     if (!this.data.isEditCart) {
       var productIds = this.data.cartGoods.map(function (v) {
-        return v.product_id;
+        return v.productId;
       });
-      util.request(api.CartChecked, { productIds: productIds.join(','), isChecked: that.isCheckedAll() ? 0 : 1 }, "POST", "application/json").then(function (res) {
-        if (res.errno === 0) {
+      util.request(api.CartChecked, { productIds: productIds.join(','), isChecked: that.isCheckedAll() ? 0 : 1 }).then(function (res) {
+        if (res.succeed) {
           that.setData({
             cartGoods: res.data.cartList,
             cartTotal: res.data.cartTotal
@@ -177,7 +178,7 @@ Page({
       number: number,
       id: id
     }).then(function (res) {
-      if (res.errno === 0) {
+      if (res.succeed) {
         that.setData({
           //cartGoods: res.data.cartList,
           //cartTotal: res.data.cartTotal
@@ -199,7 +200,7 @@ Page({
     this.setData({
       cartGoods: this.data.cartGoods
     });
-    this.updateCart(cartItem.product_id, cartItem.goods_id, number, cartItem.id);
+    this.updateCart(cartItem.productId, cartItem.goodsId, number, cartItem.id);
   },
   addNumber: function (event) {
     let itemIndex = event.target.dataset.itemIndex;
@@ -209,7 +210,8 @@ Page({
     this.setData({
       cartGoods: this.data.cartGoods
     });
-    this.updateCart(cartItem.product_id, cartItem.goods_id, number, cartItem.id);
+  
+    this.updateCart(cartItem.productId, cartItem.goodsId, number, cartItem.id);
 
   },
   checkoutOrder: function () {
@@ -251,15 +253,15 @@ Page({
 
     productIds = productIds.map(function (element, index, array) {
       if (element.checked == true) {
-        return element.product_id;
+        return element.productId;
       }
     });
 
 
     util.request(api.CartDelete, {
       productIds: productIds.join(',')
-    }, 'POST', 'application/json').then(function (res) {
-      if (res.errno === 0) {
+    }).then(function (res) {
+      if (res.succeed) {
         let cartList = res.data.cartList.map(v => {
           v.checked = false;
           return v;

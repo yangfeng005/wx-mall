@@ -188,7 +188,7 @@ Page({
     var that = this;
     this.getGoodsInfo();
     util.request(api.CartGoodsCount).then(function (res) {
-      if (res.errno === 0) {
+      if (res.succeed) {
         that.setData({
           cartGoodsCount: res.data.cartTotal.goodsCount
         });
@@ -352,13 +352,13 @@ Page({
       }
 
       //验证库存
-      if (checkedProduct.goods_number < this.data.number) {
+      if (checkedProduct[0].goodsNumber < this.data.number) {
         //找不到对应的product信息，提示没有库存
         return false;
       }
 
       //添加到购物车
-      util.request(api.CartAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, 'POST', 'application/json')
+      util.request(api.CartAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id })
         .then(function (res) {
           let _res = res;
           if (_res.succeed) {
