@@ -55,7 +55,7 @@ Page({
 
         WxParse.wxParse('goodsDetail', 'html', res.data.info.goodsDesc, that);
 
-        that.getGoodsRelated();
+       // that.getGoodsRelated();
       }
     });
 

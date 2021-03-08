@@ -163,11 +163,10 @@ Page({
     }
     util.request(api.OrderSubmit, { productId: this.data.productId, number: this.data.number,
        addressId: this.data.addressId, couponId: this.data.couponId, type: this.data.buyType }).then(res => {
-      debugger
-      if (res.succeed) {
+       if (res.succeed) {
         const orderId = res.data.order.id;
         
-        pay.payOrder(parseInt(orderId)).then(res => {
+        pay.payOrder(orderId).then(res => {
           wx.redirectTo({
             url: '/pages/payResult/payResult?status=1&orderId=' + orderId
           });

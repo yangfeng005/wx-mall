@@ -41,7 +41,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "云上购",
+    "navigationBarTitleText": "云货购",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },

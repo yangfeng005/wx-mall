@@ -9,7 +9,8 @@ Page({
     loadmoreText: '正在加载更多数据',
     nomoreText: '全部加载完成',
     nomore: false,
-    totalPages: 1
+    totalPages: 1,
+    fileDownloadUrl: api.FileDownloadUrl
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -40,13 +41,13 @@ Page({
       })
       return;
     }
-
-    util.request(api.OrderList, {page: that.data.page, size: that.data.size}).then(function (res) {
-      if (res.errno === 0) {
+  
+    util.request(api.OrderList, {pageNo: that.data.page, pageSize: that.data.size}).then(function (res) {
+      if (res.succeed) {
         that.setData({
-          orderList: that.data.orderList.concat(res.data.data),
-          page: res.data.currentPage + 1,
-          totalPages: res.data.totalPages
+          orderList: that.data.orderList.concat(res.data),
+          page: res.additionalProperties.page.pageNo + 1,
+          totalPages: res.additionalProperties.page.totalPages
         });
         wx.hideLoading();
       }
@@ -57,7 +58,7 @@ Page({
       let orderIndex = event.currentTarget.dataset.orderIndex;
       let order = that.data.orderList[orderIndex];
       wx.redirectTo({
-          url: '/pages/pay/pay?orderId=' + order.id + '&actualPrice=' + order.actual_price,
+          url: '/pages/pay/pay?orderId=' + order.id + '&actualPrice=' + order.actualPrice,
       })
   },
   onReady:function(){
