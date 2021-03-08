@@ -13,7 +13,7 @@ function payOrder(orderId) {
     util.request(api.PayPrepayId, {
       orderId: orderId
     }).then((res) => {
-      if (res.errno === 0) {
+      if (res.succeed) {
         const payParam = res.data;
         wx.requestPayment({
           'timeStamp': payParam.timeStamp,

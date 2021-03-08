@@ -161,9 +161,12 @@ Page({
       util.showErrorToast('请选择收货地址');
       return false;
     }
-    util.request(api.OrderSubmit, { addressId: this.data.addressId, couponId: this.data.couponId, type: this.data.buyType }, 'POST', 'application/json').then(res => {
+    util.request(api.OrderSubmit, { productId: this.data.productId, number: this.data.number,
+       addressId: this.data.addressId, couponId: this.data.couponId, type: this.data.buyType }).then(res => {
+      debugger
       if (res.succeed) {
-        const orderId = res.data.orderInfo.id;
+        const orderId = res.data.order.id;
+        
         pay.payOrder(parseInt(orderId)).then(res => {
           wx.redirectTo({
             url: '/pages/payResult/payResult?status=1&orderId=' + orderId
